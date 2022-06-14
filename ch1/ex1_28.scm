@@ -1,7 +1,16 @@
 (define (expmod base exp m)
-  (define (check x) (if (and (= (square x) 1) (or (= 1 x) (= (- m 1) x))) 1 (square x)))
+  (define (square-for-not-trivial x)
+    (if (and 
+          (= (square x) 1) 
+          (not (= 1 x))
+          (not (= (- m 1) x))
+        ) 0 (square x)
+    )
+  )
 
-  (define (square-expmod e) (check (expmod base e m)))
+  (define (square-expmod e) 
+    (square-for-not-trivial (expmod base e m))
+  )
 
   (cond ((= exp 0) 1)
         ((even? exp)
