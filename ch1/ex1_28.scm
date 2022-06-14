@@ -1,0 +1,42 @@
+(define (expmod base exp m)
+  (define (check x) (if (and (= (square x) 1) (or (= 1 x) (= (- m 1) x))) 1 (square x)))
+
+  (define (square-expmod e) (check (expmod base e m)))
+
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square-expmod (/ exp 2)) m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m)) m))
+  )
+)
+
+(define (carmichael-test num)
+  (define (try-it a)
+    (= (expmod a (- num 1) num) 1)
+  )
+  (define (next a) (if (= a 2) 3 (+ a 2)))
+  (define (loop a)
+    (cond ((= a num) true)
+          ((try-it a) (loop (next a)))
+          (else false)
+    )
+  )
+  (loop 2)
+)
+
+(define (ckeck n)
+  (newline)
+  (display n)
+  (if (carmichael-test n) (display " true") (display " false"))
+)
+        
+    
+(ckeck 561)
+(ckeck 19)
+(ckeck 6602)
+(ckeck 1105)
+(ckeck 1729)
+(ckeck 2465)
+(ckeck 2821)
+(ckeck 6601)
