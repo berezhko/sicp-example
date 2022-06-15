@@ -16,12 +16,16 @@
 
 (define (simpson f a b n)
   (define h (/ (- b a) n))
-  (define (next-a x) (+ x h))
-  (define (next-even-a x) (+ x (* 2 h)))
+  (define (next x) (+ x h h))
 
-  (/ (* (- (* 4 (sum f a next-a b) ) (* 2 (sum f a next-even-a b)) (f a) (f b)) h) 3)
+  (/ (* (+ (* 4 (sum f (+ a h)   next (+ (- b h)   (/ h 10))))
+           (* 2 (sum f (+ a h h) next (+ (- b h h) (/ h 10))))
+           (f a)
+           (f b))
+      h)
+   3)
 )
 
+(simpson cube 0 1 10.0)
 (simpson cube 0 1 100.0)
 (simpson cube 0 1 1000.0)
-(simpson cube 0 1 10000.0)
