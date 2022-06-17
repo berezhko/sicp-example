@@ -1,15 +1,16 @@
 (define (filtered-accumulate filter combiner null−value term a next b)
   (define (iter a result)
-    (if (> a b) result
-        (if (filter a) (iter (next a) (combiner result (term a)))))
+    (cond ((> a b) result)
+          ((filter a) (newline) (display a) (iter (next a) (combiner result (term a))))
+          (else (iter (next a) result))
+    )
   )
   (iter a null−value)
 )
 
-(define (combiner a b) (+ a b))
-
 (define (sum-square-prime a b)
-  (filtered-accumulate prime? combiner 0 square a (lambda (x) (if (> x 2) (+ x 2) x)) b)
+  (define (combiner a b) (+ a b))
+  (filtered-accumulate prime? combiner 0 square a (lambda (x) (if (> x 2) (+ x 2) (+ x 1))) b)
 )
 
 ; -------------------
@@ -32,10 +33,17 @@
 
 (sum-square-prime 1 10)
 
-(define (filtered-accumulate filter combiner null−value term a next b)
-    (if (> a b)
-        null−value
-        (if (filter a) (combiner (term a) (filtered-accumulate filter combiner null−value term (next a) next b))))
+
+; --------------------
+(define (gcd a b)
+  (if (= b 0) a (gcd b (remainder a b)))
+)
+; --------------------
+
+(define (product-gcd-simple n)
+  (define (combiner a b) (* a b))
+  (filtered-accumulate (lambda (x) (= (gcd n x) 1)) combiner 1 (lambda (x) x) 1 (lambda (x) (+ x 1)) n)
 )
 
-(sum-square-prime 1 10)
+(product-gcd-simple 11)
+
