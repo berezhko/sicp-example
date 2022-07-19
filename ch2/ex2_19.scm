@@ -5,8 +5,7 @@
         ((or (< amount 0) (= kinds-of-coins 0)) 0)
         (else (+ 
                 (cc amount (- kinds-of-coins 1)) 
-                (cc (- amount (first-denomination kinds-of-coins)) kinds-of-coins))
-        )))
+                (cc (- amount (first-denomination kinds-of-coins)) kinds-of-coins)))))
 
 (define (first-denomination kinds-of-coins)
   (cond ((= kinds-of-coins 1) 1)
@@ -22,7 +21,22 @@
         ((or (< amount 0) (no-more? coin-values)) 0)
         (else (+
                 (cc amount (except-first-denomination coin-values))
-                (cc (- amount (first-denomination coin-values)) coin-values))
-        )))
+                (cc (- amount (first-denomination coin-values)) coin-values)))))
 
 
+(define (no-more? coin-values)
+  (cond ((not (pair? coin-values)) #true)
+        ((null? coin-values) #true)
+        (else #false)))
+
+(define (first-denomination coin-values)
+  (car coin-values))
+
+(define (except-first-denomination coin-values)
+  (cdr coin-values))
+
+(define us−coins (list 50 25 10 5 1))
+(define ru−coins (list 10 5 2 1))
+
+(cc 100 us−coins)
+(cc 100 ru−coins)
