@@ -1,4 +1,4 @@
-(define (same−parity x . y)
+(define (same-parity x . y)
   (define (even?? x y) (and (even? x) (even? y)))
   (define (not-even?? x y) (and (not (even? x)) (not (even? y))))
   (define (same-parity? x y)
@@ -12,6 +12,6 @@
   (main (cons x y)))
 
 
-(same−parity 1 2 3 4 5 6 7 8 9 10 11 12)
-(same−parity 2 1 3 4 5 6 7 8 9 10 11 12)
+(same-parity 1 2 3 4 5 6 7 8 9 10 11 12)
+(same-parity 2 1 3 4 5 6 7 8 9 10 11 12)
 
