@@ -16,6 +16,16 @@
 
 (count-change 100)
 
+(define (count-change amount) (cc amount 4))
+
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 2)
+        ((= kinds-of-coins 3) 5)
+        ((= kinds-of-coins 4) 10)))
+
+(count-change 100)
+
 (define (cc amount coin-values)
   (cond ((= amount 0) 1)
         ((or (< amount 0) (no-more? coin-values)) 0)
@@ -25,9 +35,7 @@
 
 
 (define (no-more? coin-values)
-  (cond ((not (pair? coin-values)) #true)
-        ((null? coin-values) #true)
-        (else #false)))
+  (if (null? coin-values) #true #false))
 
 (define (first-denomination coin-values)
   (car coin-values))
