@@ -29,3 +29,24 @@
   (make-list l (list)))
 
 (reverse (list 1 3 5 7 9))
+
+(define (even-fibs n)
+  (define (next k)
+    (if (> k n)
+      (list )
+      (let ((f (fib k)))
+        (if (even? f)
+          (cons f (next (+ k 1)))
+          (next (+ k 1))))))
+
+  (next 0))
+
+(define (fib k)
+  (cond ((= k 1) 1)
+        ((= k 2) 2)
+        (else (+ (fib (- k 1)) (fib (- k 2))))))
+
+(fib 10)
+
+(even-fibs 10)
+

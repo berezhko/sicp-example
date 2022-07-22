@@ -48,11 +48,8 @@
 )
 
 (define (report-prime elapsed-time)
-  (display \" *** \")
-  (disply elapsed-time)
+  (display " *** ")
+  (display elapsed-time)
 )
 
-(define (search-for-primes a b)
- 
-
-)
+(define (search-for-primes a b) a)
